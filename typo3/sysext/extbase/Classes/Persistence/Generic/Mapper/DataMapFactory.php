@@ -296,6 +296,11 @@ class DataMapFactory implements \TYPO3\CMS\Core\SingletonInterface {
 		} else {
 			$columnMap->setTypeOfRelation(ColumnMap::RELATION_NONE);
 		}
+
+		if (isset($columnConfiguration['behaviour']['localizationMode'])) {
+			$columnMap->setRelationsOverriddenByTranslation($columnConfiguration['behaviour']['localizationMode'] !== 'keep');
+		}
+
 		return $columnMap;
 	}
 

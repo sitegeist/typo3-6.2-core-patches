@@ -11,7 +11,7 @@ $TCA['tx_blogexample_domain_model_post'] = array(
 		'maxSingleDBListItems' => 500
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid, hidden, blog, title, date, author, content, tags, comments, related_posts')
+		'1' => array('showitem' => 'sys_language_uid, hidden, blog, title, date, author, content, tags, comments, related_posts, images')
 	),
 	'columns' => array(
 		'sys_language_uid' => Array (
@@ -169,6 +169,15 @@ $TCA['tx_blogexample_domain_model_post'] = array(
 				'MM' => 'tx_blogexample_post_post_mm',
 				'MM_opposite_field' => 'related_posts',
 			)
+		),
+		'images' => array(
+			'exclude' => 1,
+//			'l10n_mode' => 'mergeIfNotBlank',
+			'label' => 'LLL:EXT:blog_example/Resources/Private/Language/locallang_db.xml:tx_blogexample_domain_model_post.images',
+			'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('images',
+					array(),
+					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
+				),
 		),
 	)
 );
