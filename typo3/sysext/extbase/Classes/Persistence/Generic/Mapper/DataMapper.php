@@ -348,6 +348,14 @@ class DataMapper implements \TYPO3\CMS\Core\SingletonInterface {
 		$query = $this->queryFactory->create($type);
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+
+		// If the relations are not replaced by the translation, we need to manually force the language mode to be
+		// "content_fallback", otherwise the original language relations will be unset if the language mode configured
+		// for the site is "strict".
+		if (!$columnMap->isRelationsOverriddenByTranslation()) {
+			$query->getQuerySettings()->setLanguageMode('content_fallback');
+		}
+
 		if ($columnMap->getTypeOfRelation() === \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\ColumnMap::RELATION_HAS_MANY) {
 			if ($columnMap->getChildSortByFieldName() !== NULL) {
 				$query->setOrderings(array($columnMap->getChildSortByFieldName() => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
