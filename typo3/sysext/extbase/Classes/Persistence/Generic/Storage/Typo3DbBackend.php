@@ -822,6 +822,8 @@ class Typo3DbBackend implements BackendInterface, \TYPO3\CMS\Core\SingletonInter
 				&& !isset($GLOBALS['TCA'][$tableName]['ctrl']['transOrigPointerTable'])
 			) {
 				if (in_array($row[$GLOBALS['TCA'][$tableName]['ctrl']['languageField']], array(-1, 0))) {
+					// TODO this should probably be changed to also respect the column configuration (or we need to
+					// set the query mode correctly in DataMapper::getPreparedQuery())
 					$overlayMode = $querySettings->getLanguageMode() === 'strict' ? 'hideNonTranslated' : '';
 					$row = $pageRepository->getRecordOverlay($tableName, $row, $querySettings->getLanguageUid(), $overlayMode);
 				}
