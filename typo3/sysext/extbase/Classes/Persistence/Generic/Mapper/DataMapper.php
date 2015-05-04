@@ -352,7 +352,7 @@ class DataMapper implements \TYPO3\CMS\Core\SingletonInterface {
 		// If the relations are not replaced by the translation, we need to manually force the language mode to be
 		// "content_fallback", otherwise the original language relations will be unset if the language mode configured
 		// for the site is "strict".
-		if (!$columnMap->isRelationsOverriddenByTranslation()) {
+        if ($columnMap->isRelationsOverriddenByTranslation()===FALSE) {
 			$query->getQuerySettings()->setLanguageMode('content_fallback');
 		}
 
